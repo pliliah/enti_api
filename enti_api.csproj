@@ -174,6 +174,9 @@
     <Compile Include="SelectCategories_Result.cs">
       <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SelectShoppingItems_Result.cs">
+      <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShoppingCart.cs">
       <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
     </Compile>

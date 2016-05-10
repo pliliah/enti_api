@@ -95,5 +95,14 @@ namespace enti_api
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectCategories_Result>("SelectCategories");
         }
+    
+        public virtual ObjectResult<SelectShoppingItems_Result> SelectShoppingItems(Nullable<int> categoryID)
+        {
+            var categoryIDParameter = categoryID.HasValue ?
+                new ObjectParameter("CategoryID", categoryID) :
+                new ObjectParameter("CategoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectShoppingItems_Result>("SelectShoppingItems", categoryIDParameter);
+        }
     }
 }

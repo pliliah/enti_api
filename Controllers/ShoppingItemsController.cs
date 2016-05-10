@@ -11,24 +11,47 @@ namespace enti_api.Controllers
     {
        
         // GET: api/ShoppingItems/5
-        public string Get(int id)
+        public List<Models.ShoppingItem> Get(int? categoryId)
         {
-            return "value";
+            var items = new List<Models.ShoppingItem>();
+
+            using (var db = new EntiTreesEntities())
+            {
+                var query = db.SelectShoppingItems(categoryId);
+
+                foreach (var item in query)
+                {
+                    items.Add(new Models.ShoppingItem
+                    {
+                       id = item.Id,
+                       description = item.Description,
+                       discount = item.Discount,
+                       lastUpdated = item.LastModified,
+                       price = item.Price,
+                       quantity = item.Quantity,
+                       src = item.ImageSrc,
+                       title = item.Title,
+                       categoryId = item.CategoryId
+                    });
+                }
+            }
+
+            return items;
         }
 
-        // POST: api/ShoppingItems
-        public void Post([FromBody]string value)
-        {
-        }
+        //// POST: api/ShoppingItems
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // PUT: api/ShoppingItems/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// PUT: api/ShoppingItems/5
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        // DELETE: api/ShoppingItems/5
-        public void Delete(int id)
-        {
-        }
+        //// DELETE: api/ShoppingItems/5
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
