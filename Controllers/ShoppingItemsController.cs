@@ -39,19 +39,26 @@ namespace enti_api.Controllers
             return items;
         }
 
-        //// POST: api/ShoppingItems
-        //public void Post([FromBody]string value)
-        //{
-        //}
+        //create shopping item
+        // POST: api/ShoppingItems
+        public void Post([FromBody]Models.ShoppingItem item)
+        {
+            using (var db = new EntiTreesEntities())
+            {
+                db.InsertNewShopItem(item.title, item.description, item.price, item.discount, "1.jpg", item.quantity, item.categoryId);               
+            }
+        }
 
-        //// PUT: api/ShoppingItems/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
+        //update shopping item
+        // PUT: api/ShoppingItems/5
+        public void Put(int id, [FromBody]Models.ShoppingItem item)
+        {
+            
+        }
 
-        //// DELETE: api/ShoppingItems/5
-        //public void Delete(int id)
-        //{
-        //}
+        // DELETE: api/ShoppingItems/5
+        public void Delete(int id)
+        {
+        }
     }
 }
