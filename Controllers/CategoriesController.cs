@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using enti_api.Models;
 
 namespace enti_api.Controllers
 {
@@ -14,19 +13,28 @@ namespace enti_api.Controllers
         // GET: api/Categories/5
         public List<Models.Category> Get()
         {
-            var cat = new Models.Category
+            var categories = new List<Models.Category>();
+
+            using (var db = new EntiTreesEntities())
             {
-                id = 1,
-                description = "asdf",
-                imageSrc = "1.jpg",
-                itemsCount = 5,
-                name = "test",
-                src = "shop/soil",
-                systemName = "soil"
-            };
-            var list = new List<Models.Category>();
-            list.Add(cat);
-            return list;
+                var query = db.SelectCategories();
+
+                foreach (var item in query)
+                {
+                    categories.Add(new Models.Category
+                    {
+                        id = item.Id,
+                        name = item.Name,
+                        description = item.Description,
+                        imageSrc = item.ImgSrc,
+                        src = item.Src,
+                        itemsCount = 0,
+                        systemName = item.SystemName
+                    });
+                }
+            }
+
+            return categories;
         }
     }
 }

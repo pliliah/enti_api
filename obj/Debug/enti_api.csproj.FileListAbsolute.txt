@@ -36,6 +36,9 @@ E:\Personal\enti_net\enti_api\enti_api\bin\Newtonsoft.Json.xml
 E:\Personal\enti_net\enti_api\enti_api\bin\System.Net.Http.Formatting.xml
 E:\Personal\enti_net\enti_api\enti_api\bin\System.Web.Http.xml
 E:\Personal\enti_net\enti_api\enti_api\bin\System.Web.Http.WebHost.xml
-E:\Personal\enti_net\enti_api\enti_api\obj\Debug\enti_api.csprojResolveAssemblyReference.cache
 E:\Personal\enti_net\enti_api\enti_api\obj\Debug\enti_api.dll
 E:\Personal\enti_net\enti_api\enti_api\obj\Debug\enti_api.pdb
+E:\Personal\enti_net\enti_api\enti_api\bin\EntityFramework.dll
+E:\Personal\enti_net\enti_api\enti_api\bin\EntityFramework.SqlServer.dll
+E:\Personal\enti_net\enti_api\enti_api\bin\EntityFramework.xml
+E:\Personal\enti_net\enti_api\enti_api\bin\EntityFramework.SqlServer.xml
