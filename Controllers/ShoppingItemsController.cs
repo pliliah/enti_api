@@ -45,15 +45,18 @@ namespace enti_api.Controllers
         {
             using (var db = new EntiTreesEntities())
             {
-                db.InsertNewShopItem(item.title, item.description, item.price, item.discount, "1.jpg", item.quantity, item.categoryId);               
+                db.InsertNewShopItem(item.title, item.description, item.price, item.discount, item.src, item.quantity, item.categoryId);               
             }
         }
 
         //update shopping item
         // PUT: api/ShoppingItems/5
-        public void Put(int id, [FromBody]Models.ShoppingItem item)
+        public void Put([FromBody]Models.ShoppingItem item)
         {
-            
+            using (var db = new EntiTreesEntities())
+            {
+                db.UpdateShopItem(item.id, item.title, item.description, item.price, item.discount, item.src, item.quantity, item.categoryId);
+            }
         }
 
         // DELETE: api/ShoppingItems/5

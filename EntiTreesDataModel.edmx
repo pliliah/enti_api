@@ -90,6 +90,16 @@
         <Function Name="SelectShoppingItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CategoryID" Type="int" Mode="In" />
         </Function>
+        <Function Name="UpdateShopItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Price" Type="float" Mode="In" />
+          <Parameter Name="Discount" Type="int" Mode="In" />
+          <Parameter Name="ImageSrc" Type="nvarchar" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="EntiTreesModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -200,7 +210,17 @@
           </FunctionImport>
           <FunctionImport Name="SelectCategories" ReturnType="Collection(EntiTreesModel.SelectCategories_Result)" />
           <FunctionImport Name="SelectShoppingItems" ReturnType="Collection(EntiTreesModel.SelectShoppingItems_Result)">
-            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+          <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateShopItem">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Double" />
+            <Parameter Name="Discount" Mode="In" Type="Int32" />
+            <Parameter Name="ImageSrc" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SelectCategories_Result">
@@ -314,6 +334,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateShopItem" FunctionName="EntiTreesModel.Store.UpdateShopItem" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -87,5 +87,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateShopItem" FunctionName="EntiTreesModel.Store.UpdateShopItem" />
   </EntityContainerMapping>
 </Mapping>

@@ -97,6 +97,16 @@
     <FunctionImport Name="SelectShoppingItems" ReturnType="Collection(EntiTreesModel.SelectShoppingItems_Result)">
       <Parameter Name="CategoryID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="UpdateShopItem">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="Price" Mode="In" Type="Double" />
+      <Parameter Name="Discount" Mode="In" Type="Int32" />
+      <Parameter Name="ImageSrc" Mode="In" Type="String" />
+      <Parameter Name="Quantity" Mode="In" Type="Int32" />
+      <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SelectCategories_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />

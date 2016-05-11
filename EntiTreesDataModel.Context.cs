@@ -104,5 +104,42 @@ namespace enti_api
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectShoppingItems_Result>("SelectShoppingItems", categoryIDParameter);
         }
+    
+        public virtual int UpdateShopItem(Nullable<int> iD, string title, string description, Nullable<double> price, Nullable<int> discount, string imageSrc, Nullable<int> quantity, Nullable<int> categoryId)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var priceParameter = price.HasValue ?
+                new ObjectParameter("Price", price) :
+                new ObjectParameter("Price", typeof(double));
+    
+            var discountParameter = discount.HasValue ?
+                new ObjectParameter("Discount", discount) :
+                new ObjectParameter("Discount", typeof(int));
+    
+            var imageSrcParameter = imageSrc != null ?
+                new ObjectParameter("ImageSrc", imageSrc) :
+                new ObjectParameter("ImageSrc", typeof(string));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("Quantity", quantity) :
+                new ObjectParameter("Quantity", typeof(int));
+    
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateShopItem", iDParameter, titleParameter, descriptionParameter, priceParameter, discountParameter, imageSrcParameter, quantityParameter, categoryIdParameter);
+        }
     }
 }
