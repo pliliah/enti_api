@@ -13,6 +13,6 @@ namespace enti_api.Models
         public string systemName { get; set; }
         public string src { get; set; }
         public string imageSrc { get; set; }
-        public int itemsCount { get; set; }
+        public int? itemsCount { get; set; }
     }
 }

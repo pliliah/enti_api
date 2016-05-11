@@ -46,6 +46,7 @@
     <EntitySetMapping Name="ShoppingItem">
       <EntityTypeMapping TypeName="EntiTreesModel.ShoppingItem">
         <MappingFragment StoreEntitySet="ShoppingItem">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Description" ColumnName="Description" />
@@ -60,18 +61,6 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="InsertNewOrder" FunctionName="EntiTreesModel.Store.InsertNewOrder" />
     <FunctionImportMapping FunctionImportName="InsertNewShopItem" FunctionName="EntiTreesModel.Store.InsertNewShopItem" />
-    <FunctionImportMapping FunctionImportName="SelectCategories" FunctionName="EntiTreesModel.Store.SelectCategories">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="EntiTreesModel.SelectCategories_Result">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="SystemName" ColumnName="SystemName" />
-          <ScalarProperty Name="Src" ColumnName="Src" />
-          <ScalarProperty Name="ImgSrc" ColumnName="ImgSrc" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SelectShoppingItems" FunctionName="EntiTreesModel.Store.SelectShoppingItems">
       <ResultMapping>
         <ComplexTypeMapping TypeName="EntiTreesModel.SelectShoppingItems_Result">
@@ -88,5 +77,19 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="UpdateShopItem" FunctionName="EntiTreesModel.Store.UpdateShopItem" />
+    <FunctionImportMapping FunctionImportName="SelectCategories" FunctionName="EntiTreesModel.Store.SelectCategories">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntiTreesModel.SelectCategories_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SystemName" ColumnName="SystemName" />
+          <ScalarProperty Name="Src" ColumnName="Src" />
+          <ScalarProperty Name="ImgSrc" ColumnName="ImgSrc" />
+          <ScalarProperty Name="ItemsCount" ColumnName="ItemsCount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DeleteShopItem" FunctionName="EntiTreesModel.Store.DeleteShopItem" />
   </EntityContainerMapping>
 </Mapping>

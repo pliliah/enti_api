@@ -91,11 +91,6 @@ namespace enti_api
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertNewShopItem", titleParameter, descriptionParameter, priceParameter, discountParameter, imageSrcParameter, quantityParameter, categoryIdParameter);
         }
     
-        public virtual ObjectResult<SelectCategories_Result> SelectCategories()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectCategories_Result>("SelectCategories");
-        }
-    
         public virtual ObjectResult<SelectShoppingItems_Result> SelectShoppingItems(Nullable<int> categoryID)
         {
             var categoryIDParameter = categoryID.HasValue ?
@@ -140,6 +135,20 @@ namespace enti_api
                 new ObjectParameter("CategoryId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateShopItem", iDParameter, titleParameter, descriptionParameter, priceParameter, discountParameter, imageSrcParameter, quantityParameter, categoryIdParameter);
+        }
+    
+        public virtual ObjectResult<SelectCategories_Result> SelectCategories()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectCategories_Result>("SelectCategories");
+        }
+    
+        public virtual int DeleteShopItem(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteShopItem", iDParameter);
         }
     }
 }

@@ -62,6 +62,10 @@ namespace enti_api.Controllers
         // DELETE: api/ShoppingItems/5
         public void Delete(int id)
         {
+            using (var db = new EntiTreesEntities())
+            {
+                db.DeleteShopItem(id);
+            }
         }
     }
 }

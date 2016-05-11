@@ -28,7 +28,7 @@ namespace enti_api.Controllers
                         description = item.Description,
                         imageSrc = item.ImgSrc,
                         src = item.Src,
-                        itemsCount = 0,
+                        itemsCount = item.ItemsCount,
                         systemName = item.SystemName
                     });
                 }

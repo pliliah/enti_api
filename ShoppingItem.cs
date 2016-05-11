@@ -23,6 +23,7 @@ namespace enti_api
         public string ImageSrc { get; set; }
         public int Quantity { get; set; }
         public int CategoryId { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual Category Category { get; set; }
     }

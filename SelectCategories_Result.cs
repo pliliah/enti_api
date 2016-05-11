@@ -19,5 +19,6 @@ namespace enti_api
         public string SystemName { get; set; }
         public string Src { get; set; }
         public string ImgSrc { get; set; }
+        public Nullable<int> ItemsCount { get; set; }
     }
 }
