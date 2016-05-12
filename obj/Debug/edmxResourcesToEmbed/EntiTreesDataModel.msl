@@ -59,7 +59,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="InsertNewOrder" FunctionName="EntiTreesModel.Store.InsertNewOrder" />
     <FunctionImportMapping FunctionImportName="InsertNewShopItem" FunctionName="EntiTreesModel.Store.InsertNewShopItem" />
     <FunctionImportMapping FunctionImportName="SelectShoppingItems" FunctionName="EntiTreesModel.Store.SelectShoppingItems">
       <ResultMapping>
@@ -91,5 +90,13 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="DeleteShopItem" FunctionName="EntiTreesModel.Store.DeleteShopItem" />
+    <FunctionImportMapping FunctionImportName="InsertNewOrder" FunctionName="EntiTreesModel.Store.InsertNewOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntiTreesModel.InsertNewOrder_Result">
+          <ScalarProperty Name="ResultMessage" ColumnName="ResultMessage" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

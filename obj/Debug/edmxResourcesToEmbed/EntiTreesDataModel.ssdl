@@ -25,7 +25,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ShoppingCartId" Type="int" Nullable="false" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
     <Property Name="Message" Type="nvarchar" MaxLength="500" />
@@ -70,11 +70,7 @@
     <Parameter Name="ID" Type="int" Mode="In" />
   </Function>
   <Function Name="InsertNewOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
-    <Parameter Name="CustomerEmail" Type="nvarchar" Mode="In" />
-    <Parameter Name="CustomerPhone" Type="nvarchar" Mode="In" />
-    <Parameter Name="CustomerAddress" Type="nvarchar" Mode="In" />
-    <Parameter Name="Message" Type="nvarchar" Mode="In" />
+    <Parameter Name="InXML" Type="xml" Mode="In" />
   </Function>
   <Function Name="InsertNewShopItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Title" Type="nvarchar" Mode="In" />

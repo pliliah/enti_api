@@ -78,13 +78,6 @@
       <End Role="Category" EntitySet="Category" />
       <End Role="ShoppingItem" EntitySet="ShoppingItem" />
     </AssociationSet>
-    <FunctionImport Name="InsertNewOrder">
-      <Parameter Name="CustomerName" Mode="In" Type="String" />
-      <Parameter Name="CustomerEmail" Mode="In" Type="String" />
-      <Parameter Name="CustomerPhone" Mode="In" Type="String" />
-      <Parameter Name="CustomerAddress" Mode="In" Type="String" />
-      <Parameter Name="Message" Mode="In" Type="String" />
-    </FunctionImport>
     <FunctionImport Name="InsertNewShopItem">
       <Parameter Name="Title" Mode="In" Type="String" />
       <Parameter Name="Description" Mode="In" Type="String" />
@@ -111,6 +104,9 @@
     <FunctionImport Name="DeleteShopItem">
       <Parameter Name="ID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="InsertNewOrder" ReturnType="Collection(EntiTreesModel.InsertNewOrder_Result)">
+      <Parameter Name="InXML" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SelectShoppingItems_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -131,5 +127,9 @@
     <Property Type="String" Name="Src" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="ImgSrc" Nullable="false" MaxLength="50" />
     <Property Type="Int32" Name="ItemsCount" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="InsertNewOrder_Result">
+    <Property Type="String" Name="ResultMessage" Nullable="false" MaxLength="27" />
+    <Property Type="String" Name="Result" Nullable="false" MaxLength="3" />
   </ComplexType>
 </Schema>

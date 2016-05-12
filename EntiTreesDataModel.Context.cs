@@ -33,31 +33,6 @@ namespace enti_api
         public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
         public virtual DbSet<ShoppingItem> ShoppingItem { get; set; }
     
-        public virtual int InsertNewOrder(string customerName, string customerEmail, string customerPhone, string customerAddress, string message)
-        {
-            var customerNameParameter = customerName != null ?
-                new ObjectParameter("CustomerName", customerName) :
-                new ObjectParameter("CustomerName", typeof(string));
-    
-            var customerEmailParameter = customerEmail != null ?
-                new ObjectParameter("CustomerEmail", customerEmail) :
-                new ObjectParameter("CustomerEmail", typeof(string));
-    
-            var customerPhoneParameter = customerPhone != null ?
-                new ObjectParameter("CustomerPhone", customerPhone) :
-                new ObjectParameter("CustomerPhone", typeof(string));
-    
-            var customerAddressParameter = customerAddress != null ?
-                new ObjectParameter("CustomerAddress", customerAddress) :
-                new ObjectParameter("CustomerAddress", typeof(string));
-    
-            var messageParameter = message != null ?
-                new ObjectParameter("Message", message) :
-                new ObjectParameter("Message", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertNewOrder", customerNameParameter, customerEmailParameter, customerPhoneParameter, customerAddressParameter, messageParameter);
-        }
-    
         public virtual int InsertNewShopItem(string title, string description, Nullable<double> price, Nullable<int> discount, string imageSrc, Nullable<int> quantity, Nullable<int> categoryId)
         {
             var titleParameter = title != null ?
@@ -149,6 +124,15 @@ namespace enti_api
                 new ObjectParameter("ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteShopItem", iDParameter);
+        }
+    
+        public virtual ObjectResult<InsertNewOrder_Result> InsertNewOrder(string inXML)
+        {
+            var inXMLParameter = inXML != null ?
+                new ObjectParameter("InXML", inXML) :
+                new ObjectParameter("InXML", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InsertNewOrder_Result>("InsertNewOrder", inXMLParameter);
         }
     }
 }

@@ -139,6 +139,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Code\Utils.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShoppingItemsController.cs" />
@@ -162,6 +163,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="InsertNewOrder_Result.cs">
+      <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />

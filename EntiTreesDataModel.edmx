@@ -30,7 +30,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShoppingCartId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="Message" Type="nvarchar" MaxLength="500" />
@@ -75,11 +75,7 @@
           <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
         <Function Name="InsertNewOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
-          <Parameter Name="CustomerEmail" Type="nvarchar" Mode="In" />
-          <Parameter Name="CustomerPhone" Type="nvarchar" Mode="In" />
-          <Parameter Name="CustomerAddress" Type="nvarchar" Mode="In" />
-          <Parameter Name="Message" Type="nvarchar" Mode="In" />
+          <Parameter Name="InXML" Type="xml" Mode="In" />
         </Function>
         <Function Name="InsertNewShopItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Title" Type="nvarchar" Mode="In" />
@@ -197,13 +193,6 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="ShoppingItem" EntitySet="ShoppingItem" />
           </AssociationSet>
-          <FunctionImport Name="InsertNewOrder">
-            <Parameter Name="CustomerName" Mode="In" Type="String" />
-            <Parameter Name="CustomerEmail" Mode="In" Type="String" />
-            <Parameter Name="CustomerPhone" Mode="In" Type="String" />
-            <Parameter Name="CustomerAddress" Mode="In" Type="String" />
-            <Parameter Name="Message" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="InsertNewShopItem">
             <Parameter Name="Title" Mode="In" Type="String" />
             <Parameter Name="Description" Mode="In" Type="String" />
@@ -228,7 +217,10 @@
           </FunctionImport>
           <FunctionImport Name="SelectCategories" ReturnType="Collection(EntiTreesModel.SelectCategories_Result)" />
           <FunctionImport Name="DeleteShopItem">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertNewOrder" ReturnType="Collection(EntiTreesModel.InsertNewOrder_Result)">
+            <Parameter Name="InXML" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SelectShoppingItems_Result">
@@ -250,6 +242,10 @@
           <Property Type="String" Name="Src" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="ImgSrc" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="ItemsCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="InsertNewOrder_Result">
+          <Property Type="String" Name="ResultMessage" Nullable="false" MaxLength="27" />
+          <Property Type="String" Name="Result" Nullable="false" MaxLength="3" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -315,7 +311,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="InsertNewOrder" FunctionName="EntiTreesModel.Store.InsertNewOrder" />
           <FunctionImportMapping FunctionImportName="InsertNewShopItem" FunctionName="EntiTreesModel.Store.InsertNewShopItem" />
           <FunctionImportMapping FunctionImportName="SelectShoppingItems" FunctionName="EntiTreesModel.Store.SelectShoppingItems">
             <ResultMapping>
@@ -347,6 +342,14 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DeleteShopItem" FunctionName="EntiTreesModel.Store.DeleteShopItem" />
+          <FunctionImportMapping FunctionImportName="InsertNewOrder" FunctionName="EntiTreesModel.Store.InsertNewOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EntiTreesModel.InsertNewOrder_Result">
+                <ScalarProperty Name="ResultMessage" ColumnName="ResultMessage" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

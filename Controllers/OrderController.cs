@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using enti_api.Models;
+using enti_api.Code;
 
 namespace enti_api.Controllers
 {
@@ -24,10 +24,32 @@ namespace enti_api.Controllers
 
         // POST: api/Order
         //Content-Type: application/json
-        //{"shoppingCart": [{"quantity": "2", "item": {"title":"Test title"}}], "customer": {"name":"Lily", "email":"test@abv.bg", "phone": "9847", "address": "asdf", "message":"msg msg"}}
-        public void Post(Order order)
+        public string Post(Models.Order order)
         {
+            string inXml = Utils.ObjectToXML(order);
+            using (var db = new EntiTreesEntities())
+            {                
+                try
+                {
+                    var result = db.InsertNewOrder(inXml);
 
+                    foreach (var item in result)
+                    {
+                        if (item.Result == "201")
+                        {
+                            return item.ResultMessage;
+                        }
+                        else {
+                            return item.ResultMessage;
+                        }
+                    }
+                    return "";
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+            }
         }
 
         //// PUT: api/Order/5

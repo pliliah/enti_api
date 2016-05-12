@@ -64,7 +64,15 @@ namespace enti_api.Controllers
         {
             using (var db = new EntiTreesEntities())
             {
-                db.DeleteShopItem(id);
+                try
+                {
+                    var result = db.DeleteShopItem(id);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                
             }
         }
     }
