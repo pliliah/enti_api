@@ -119,6 +119,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBScripts.txt" />
     <Content Include="EntiTreesDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EntiTreesDataModel.edmx</DependentUpon>
@@ -170,6 +171,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\ReturnValue.cs" />
     <Compile Include="Models\ShoppingItem.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>EntiTreesDataModel.tt</DependentUpon>

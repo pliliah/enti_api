@@ -24,30 +24,35 @@ namespace enti_api.Controllers
 
         // POST: api/Order
         //Content-Type: application/json
-        public string Post(Models.Order order)
+        public Models.ReturnValue<string> Post(Models.Order order)
         {
             string inXml = Utils.ObjectToXML(order);
             using (var db = new EntiTreesEntities())
             {                
                 try
                 {
+                    foreach(Models.OrderItem item in order.shoppingCart)
+                    {
+                        if(item.quantity > item.item.quantity)
+                        {
+                            return new Models.ReturnValue<string>(Models.Codes.NotEnoughQty, "There is not enough quantity for this item " + item.item.title);
+                        }
+                    }
+
                     var result = db.InsertNewOrder(inXml);
+                    Models.ReturnValue<string> returnVal;
 
                     foreach (var item in result)
                     {
-                        if (item.Result == "201")
-                        {
-                            return item.ResultMessage;
-                        }
-                        else {
-                            return item.ResultMessage;
-                        }
+                        Models.Codes code = (Models.Codes)Enum.Parse(typeof(Models.Codes), item.Result);
+                        returnVal = new Models.ReturnValue<string>(code, item.ResultMessage);
+                        return returnVal;                        
                     }
-                    return "";
+                    return new Models.ReturnValue<string>(Models.Codes.DBError, "There is something wrong with the DB");
                 }
                 catch (Exception ex)
                 {
-                    return ex.Message;
+                    return new Models.ReturnValue<string>(Models.Codes.Error, ex.Message);
                 }
             }
         }
