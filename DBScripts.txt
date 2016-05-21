@@ -345,7 +345,7 @@ BEGIN
       ,c.[ImgSrc]
 	  ,count(si.Id) AS ItemsCount
 	FROM [EntiTrees].[dbo].[Category] AS c
-	LEFT JOIN [EntiTrees].[dbo].[ShoppingItem] AS si ON c.Id = si.CategoryId AND si.Quantity > 0
+	LEFT JOIN [EntiTrees].[dbo].[ShoppingItem] AS si ON c.Id = si.CategoryId AND si.Quantity > 0 AND si.IsDeleted = 0
 	GROUP BY c.Id
 	  ,c.[Name]
       ,c.[Description]
