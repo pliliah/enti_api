@@ -102,7 +102,10 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Default quanti
 GO
 
 
-/****** Object:  Table [dbo].[ShoppingCart]    Script Date: 12.5.2016 г. 18:13:33 ******/
+USE [EntiTrees]
+GO
+
+/****** Object:  Table [dbo].[ShoppingCart]    Script Date: 23.5.2016 г. 17:19:45 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -113,6 +116,7 @@ CREATE TABLE [dbo].[ShoppingCart](
 	[ShoppingCartId] [int] NOT NULL,
 	[ShoppingItemId] [int] NOT NULL,
 	[Quantity] [int] NOT NULL,
+	[SinglePrice] [float] NULL,
  CONSTRAINT [PK_ShoppingCart] PRIMARY KEY CLUSTERED 
 (
 	[ShoppingCartId] ASC,
@@ -120,6 +124,9 @@ CREATE TABLE [dbo].[ShoppingCart](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The price for the single item.' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ShoppingCart', @level2type=N'COLUMN',@level2name=N'SinglePrice'
 GO
 
 
@@ -177,13 +184,13 @@ GO
 
 
 
-/****** Object:  StoredProcedure [dbo].[InsertNewOrder]    Script Date: 12.5.2016 г. 18:15:21 ******/
+USE [EntiTrees]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertNewOrder]    Script Date: 23.5.2016 г. 17:18:47 ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
 -- =============================================
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>
@@ -227,23 +234,27 @@ BEGIN
 						
 		--decrease quantity values
 		DECLARE @itemId int
+		DECLARE @itemPrice float
+		DECLARE @itemDiscount int
 		DECLARE @quantity int
 		DECLARE crsItems cursor static forward_only read_only for 
 		SELECT t.c.value('(item/id/text())[1]','int') AS id, 
+			   t.c.value('(item/price/text())[1]','float') AS price,
+			   t.c.value('(item/discount/text())[1]','int') AS discount, 
                t.c.value('(quantity/text())[1]','nvarchar(200)') AS [quantity]		          
 	    FROM @InXML.nodes('Order/shoppingCart/OrderItem')t(c)
 
 		OPEN crsItems;
-		FETCH NEXT FROM crsItems INTO @itemId, @quantity;
+		FETCH NEXT FROM crsItems INTO @itemId, @itemPrice, @itemDiscount, @quantity;
 		WHILE 0 = @@fetch_status
 		BEGIN
-			INSERT INTO ShoppingCart(ShoppingCartId, ShoppingItemId, Quantity)
-			VALUES (@ShoppingCartId, @itemId, @quantity)
+			INSERT INTO ShoppingCart(ShoppingCartId, ShoppingItemId, Quantity, SinglePrice)
+			VALUES (@ShoppingCartId, @itemId, @quantity, @itemPrice - @itemPrice * @itemDiscount / 100)
 
 			UPDATE ShoppingItem
 			SET Quantity = Quantity - @quantity
 			WHERE Id = @itemId
-		FETCH NEXT FROM crsItems INTO @itemId, @quantity;
+		FETCH NEXT FROM crsItems INTO @itemId, @itemPrice, @itemDiscount, @quantity;
 		END 
 		CLOSE crsItems;
 		DEALLOCATE crsItems;
@@ -264,8 +275,6 @@ BEGIN
 			'500' as Result
 	END CATCH
 END
-
-GO
 
 
 /****** Object:  StoredProcedure [dbo].[InsertNewShopItem]    Script Date: 12.5.2016 г. 18:15:41 ******/
