@@ -17,5 +17,6 @@ namespace enti_api
         public int ShoppingCartId { get; set; }
         public int ShoppingItemId { get; set; }
         public int Quantity { get; set; }
+        public Nullable<double> SinglePrice { get; set; }
     }
 }

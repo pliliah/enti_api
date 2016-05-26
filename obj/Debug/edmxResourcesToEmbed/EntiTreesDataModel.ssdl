@@ -29,6 +29,8 @@
     <Property Name="ShoppingCartId" Type="int" Nullable="false" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
     <Property Name="Message" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsCompleted" Type="bit" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="ShoppingCart">
     <Key>
@@ -38,6 +40,7 @@
     <Property Name="ShoppingCartId" Type="int" Nullable="false" />
     <Property Name="ShoppingItemId" Type="int" Nullable="false" />
     <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="SinglePrice" Type="float" />
   </EntityType>
   <EntityType Name="ShoppingItem">
     <Key>
@@ -82,8 +85,19 @@
     <Parameter Name="CategoryId" Type="int" Mode="In" />
   </Function>
   <Function Name="SelectCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SelectOrderByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrderID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SelectOrderItemsByOrderID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrderID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SelectOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SelectShoppingItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CategoryID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UpdateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrderID" Type="int" Mode="In" />
+    <Parameter Name="IsCompleted" Type="bit" Mode="In" />
   </Function>
   <Function Name="UpdateShopItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID" Type="int" Mode="In" />

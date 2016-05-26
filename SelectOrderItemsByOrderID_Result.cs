@@ -10,15 +10,17 @@
 namespace enti_api
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Order
+    public partial class SelectOrderItemsByOrderID_Result
     {
-        public int Id { get; set; }
         public int ShoppingCartId { get; set; }
-        public int CustomerId { get; set; }
-        public string Message { get; set; }
-        public bool IsCompleted { get; set; }
-        public System.DateTime Date { get; set; }
+        public int ShoppingItemId { get; set; }
+        public int Quantity { get; set; }
+        public Nullable<double> SinglePrice { get; set; }
+        public string Title { get; set; }
+        public string ImageSrc { get; set; }
+        public double Price { get; set; }
+        public Nullable<int> Discount { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -10,9 +10,8 @@
 namespace enti_api
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Order
+    public partial class SelectOrders_Result
     {
         public int Id { get; set; }
         public int ShoppingCartId { get; set; }
@@ -20,5 +19,7 @@ namespace enti_api
         public string Message { get; set; }
         public bool IsCompleted { get; set; }
         public System.DateTime Date { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<double> TotalPrice { get; set; }
     }
 }

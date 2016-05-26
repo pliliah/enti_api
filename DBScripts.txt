@@ -130,7 +130,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The price for 
 GO
 
 
-/****** Object:  Table [dbo].[Order]    Script Date: 12.5.2016 г. 18:13:49 ******/
+/****** Object:  Table [dbo].[Order]    Script Date: 25.5.2016 г. 11:47:17 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -142,12 +142,20 @@ CREATE TABLE [dbo].[Order](
 	[ShoppingCartId] [int] NOT NULL,
 	[CustomerId] [int] NOT NULL,
 	[Message] [nvarchar](500) NULL,
+	[IsCompleted] [bit] NOT NULL,
+	[Date] [datetime] NOT NULL,
  CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+ALTER TABLE [dbo].[Order] ADD  CONSTRAINT [DF_Order_IsCompleted]  DEFAULT ((0)) FOR [IsCompleted]
+GO
+
+ALTER TABLE [dbo].[Order] ADD  CONSTRAINT [DF_Order_Date]  DEFAULT (getdate()) FOR [Date]
 GO
 
 
@@ -445,4 +453,146 @@ END
 
 GO
 
+
+/****** Object:  StoredProcedure [dbo].[SelectOrders]    Script Date: 25.5.2016 г. 11:53:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SelectOrders]
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT o.[Id]
+      ,o.[ShoppingCartId]
+      ,o.[CustomerId]
+      ,o.[Message]
+      ,o.[IsCompleted]
+	  ,o.[Date]
+	  ,SUM(sc.Quantity) AS Quantity
+	  ,SUM(sc.SinglePrice * sc.Quantity) AS TotalPrice
+	FROM [EntiTrees].[dbo].[Order] AS o
+	INNER JOIN [EntiTrees].[dbo].[ShoppingCart] AS sc ON o.ShoppingCartId = sc.ShoppingCartId
+	GROUP BY  o.[Id]
+      ,o.[ShoppingCartId]
+      ,o.[CustomerId]
+      ,o.[Message]
+      ,o.[IsCompleted]
+	  ,o.[Date]
+	ORDER BY [IsCompleted] ASC, [Date] ASC
+END
+
+GO
+
+
+
+
+/****** Object:  StoredProcedure [dbo].[SelectOrderByID]    Script Date: 25.5.2016 г. 11:53:57 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SelectOrderByID]
+	@OrderID INT
+AS
+BEGIN
+	
+	SELECT o.[Id] as OrderId
+      ,o.[ShoppingCartId]
+      ,o.[CustomerId]
+      ,o.[Message]
+      ,o.[IsCompleted]
+	  ,o.[Date]
+	  ,c.Name
+	  ,c.Phone
+	  ,c.Email
+	  ,c.[Address]
+  FROM [dbo].[Order] AS o
+  INNER JOIN [dbo].[Customer] AS c on o.CustomerId = c.Id
+  WHERE o.Id = @OrderID
+
+END
+
+GO
+
+
+
+/****** Object:  StoredProcedure [dbo].[SelectOrderItemsByOrderID]    Script Date: 26.5.2016 г. 12:34:40 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SelectOrderItemsByOrderID] 
+	@OrderID INT
+AS
+BEGIN
+	SELECT sc.[ShoppingCartId]
+      ,sc.[ShoppingItemId]
+      ,sc.[Quantity]
+      ,sc.[SinglePrice]
+	  ,si.Title
+	  ,si.ImageSrc
+	  ,si.Price
+	  ,si.Discount
+	  ,c.Name
+  FROM [EntiTrees].[dbo].[ShoppingCart] as sc
+  INNER JOIN [dbo].[Order] AS o ON o.ShoppingCartId = sc.ShoppingCartId
+  INNER JOIN [dbo].[ShoppingItem] AS si ON si.Id = sc.ShoppingItemId
+  INNER JOIN [dbo].[Category] AS c on c.Id = si.CategoryId
+  WHERE o.Id = @OrderID
+END
+
+GO
+
+
+/****** Object:  StoredProcedure [dbo].[UpdateOrder]    Script Date: 26.5.2016 г. 14:46:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[UpdateOrder]
+	@OrderID INT,
+	@IsCompleted BIT
+AS
+BEGIN
+
+UPDATE [dbo].[Order]
+   SET [IsCompleted] = @IsCompleted     
+ WHERE Id = @OrderID
+
+END
+
+GO
 

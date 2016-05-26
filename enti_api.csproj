@@ -182,6 +182,15 @@
     <Compile Include="SelectCategories_Result.cs">
       <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SelectOrderByID_Result.cs">
+      <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SelectOrderItemsByOrderID_Result.cs">
+      <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SelectOrders_Result.cs">
+      <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SelectShoppingItems_Result.cs">
       <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
     </Compile>
