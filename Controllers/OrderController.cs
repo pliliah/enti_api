@@ -53,6 +53,7 @@ namespace enti_api.Controllers
                     order.shoppingCartId = item.ShoppingCartId;
                     order.customerId = item.CustomerId;
                     order.orderDate = item.Date;
+                    order.isCompleted = item.IsCompleted;
                     order.customer = new Models.Customer
                     {
                         message = item.Message,
