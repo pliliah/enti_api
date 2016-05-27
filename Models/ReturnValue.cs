@@ -29,7 +29,10 @@ namespace enti_api.Models
     {
         OK = 200,
         Created = 201,
+        Accepted = 202, //login successfull
         NoContent = 204,
+        Unauthorized = 401, //unsuccessfull login
+        Forbidden = 403, //when the user tries to access resources when he is not logged in
         Error = 500,
         DBError = 506,
         NotEnoughQty = 507 //not enough items in the shop for the specified quantity

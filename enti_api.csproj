@@ -144,6 +144,7 @@
     </Compile>
     <Compile Include="Code\Utils.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShoppingItemsController.cs" />
     <Compile Include="Customer.cs">
@@ -172,6 +173,7 @@
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\ReturnValue.cs" />
     <Compile Include="Models\ShoppingItem.cs" />
