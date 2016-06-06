@@ -41,6 +41,7 @@ namespace enti_api.Controllers
         }
 
         // GET: api/Order/5
+        [BasicAuthenticationAttribute]
         public Models.OrderDetails Get(int orderId)
         {
             var order = new Models.OrderDetails();
@@ -128,6 +129,7 @@ namespace enti_api.Controllers
 
         // PUT: api/Order/5
         // Update of order status
+        [BasicAuthenticationAttribute]
         public void Put(int id, bool isCompleted)
         {
             using (var db = new EntiTreesEntities())

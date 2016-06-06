@@ -1,4 +1,5 @@
-﻿using System;
+﻿using enti_api.Code;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -41,6 +42,7 @@ namespace enti_api.Controllers
 
         //create shopping item
         // POST: api/ShoppingItems
+        [BasicAuthenticationAttribute]
         public void Post([FromBody]Models.ShoppingItem item)
         {
             using (var db = new EntiTreesEntities())
@@ -51,6 +53,7 @@ namespace enti_api.Controllers
 
         //update shopping item
         // PUT: api/ShoppingItems/5
+        [BasicAuthenticationAttribute]
         public void Put([FromBody]Models.ShoppingItem item)
         {
             using (var db = new EntiTreesEntities())
@@ -60,6 +63,7 @@ namespace enti_api.Controllers
         }
 
         // DELETE: api/ShoppingItems/5
+        [BasicAuthenticationAttribute]
         public void Delete(int id)
         {
             using (var db = new EntiTreesEntities())
