@@ -19,19 +19,19 @@ namespace enti_api.Code
                 digest = null;
             if (actionContext.Request.Headers.TryGetValues("X-Auth-User", out users) && users.First().Length > 0)
             {
-                user = users.First();
+                user = users.First().Trim('"');
             }
             if (actionContext.Request.Headers.TryGetValues("X-Auth-Nonce", out nonces) && nonces.First().Length > 0)
             {
-                nonce = nonces.First();
+                nonce = nonces.First().Trim('"');
             }
             if (actionContext.Request.Headers.TryGetValues("X-Auth-Created", out createdDates) && createdDates.First().Length > 0)
             {
-                createdDate = createdDates.First();
+                createdDate = createdDates.First().Trim('"');
             }
             if (actionContext.Request.Headers.TryGetValues("X-Auth-Digest", out digests) && digests.First().Length > 0)
             {
-                digest = digests.First();
+                digest = digests.First().Trim('"');
             }
 
             if(user != null && nonce != null && createdDate != null && digest != null)
