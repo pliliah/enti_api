@@ -142,6 +142,8 @@
     <Compile Include="Category.cs">
       <DependentUpon>EntiTreesDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Code\Authentication.cs" />
+    <Compile Include="Code\BasicAuthenticationAttribute.cs" />
     <Compile Include="Code\Utils.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

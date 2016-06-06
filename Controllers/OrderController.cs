@@ -12,6 +12,7 @@ namespace enti_api.Controllers
     public class OrderController : ApiController
     {
         // GET: api/Order
+        [BasicAuthenticationAttribute]
         public List<Models.Orders> Get()
         {
             var orders = new List<Models.Orders>();

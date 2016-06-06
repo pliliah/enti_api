@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
+﻿using enti_api.Code;
 using System.Web.Http;
 
 namespace enti_api.Controllers
@@ -13,29 +7,8 @@ namespace enti_api.Controllers
     {       
         // POST: api/Login
         public Models.ReturnValue<string> Post([FromBody]Models.Login login)
-        {
-            byte[] nonce = Convert.FromBase64String(login.nonce);
-            string decodedNonce = Encoding.UTF8.GetString(nonce);
-
-            // given, a password in a string
-            string password = "123123";
-
-            // byte array representation of that string
-            byte[] encodedPassword = new UTF8Encoding().GetBytes(decodedNonce + login.date + password);
-
-            // need MD5 to calculate the hash
-            byte[] hash = ((HashAlgorithm)CryptoConfig.CreateFromName("MD5")).ComputeHash(encodedPassword);
-            // string representation (similar to UNIX format)
-            string encoded = BitConverter.ToString(hash)
-               // without dashes
-               .Replace("-", string.Empty)
-               // make lowercase
-               .ToLower();
-
-            var encodedBytes = System.Text.Encoding.UTF8.GetBytes(encoded);
-            string encodedToBase64 = Convert.ToBase64String(encodedBytes);
-
-            if (encodedToBase64 == login.digest)
+        {            
+            if (Authentication.CheckCredentials(login.user, login.nonce, login.digest, login.date))
             {
                 //login successfull
                 return new Models.ReturnValue<string>(Models.Codes.Accepted, "User logged in successfully!");
