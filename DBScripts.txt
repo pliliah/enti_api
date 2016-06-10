@@ -596,3 +596,66 @@ END
 
 GO
 
+------------------INSERTS -----------------------------------------
+
+INSERT INTO [dbo].[Category]
+           ([Name]
+           ,[Description]
+           ,[SystemName]
+           ,[Src]
+           ,[ImgSrc])
+     VALUES
+           ('Растения'
+           ,'Продажба на различни видове растения бонсаи и ...'
+           ,' plants'
+           ,' shop/plants'
+           ,' img/gallery/10.jpg' )
+INSERT INTO [dbo].[Category]
+           ([Name]
+           ,[Description]
+           ,[SystemName]
+           ,[Src]
+           ,[ImgSrc])
+     VALUES
+           ('Почви'
+           ,'Продажба на различни видове почви, подходящи за отглеждане на бонсаи'
+           ,' soil'
+           ,' shop/soil'
+           ,' img/gallery/1.jpg' )
+INSERT INTO [dbo].[Category]
+           ([Name]
+           ,[Description]
+           ,[SystemName]
+           ,[Src]
+           ,[ImgSrc])
+     VALUES
+           ('Саксии'
+           ,'Продажба на ръчно правени саксии за бонсаи, в различни видове и размери'
+           ,' pots'
+           ,' shop/pots'
+           ,' img/gallery/5.jpg' )
+INSERT INTO [dbo].[Category]
+           ([Name]
+           ,[Description]
+           ,[SystemName]
+           ,[Src]
+           ,[ImgSrc])
+     VALUES
+           ('Аксесоари'
+           ,'Всякакви аксесоари, необходими за грижите за вашите растения'
+           ,' accessories'
+           ,' shop/accessories'
+           ,' img/gallery/15.jpg' )
+INSERT INTO [dbo].[Category]
+           ([Name]
+           ,[Description]
+           ,[SystemName]
+           ,[Src]
+           ,[ImgSrc])
+     VALUES
+           ('Торове'
+           ,'Различни видове торове, подходящи за различните бонсаи'
+           ,' fertilization'
+           ,' shop/fertilization'
+           ,' img/gallery/5.jpg' )
+
