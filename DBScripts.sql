@@ -659,3 +659,143 @@ INSERT INTO [dbo].[Category]
            ,' shop/fertilization'
            ,' img/gallery/5.jpg' )
 
+
+
+------------------------------------------UPDATE DB 16.06.2016-------------------------------------------
+
+EXEC sys.sp_dropextendedproperty @name=N'MS_Description' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Order', @level2type=N'COLUMN',@level2name=N'DateCompleted'
+
+GO
+
+EXEC sys.sp_dropextendedproperty @name=N'MS_Description' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Order', @level2type=N'COLUMN',@level2name=N'Date'
+
+GO
+
+ALTER TABLE [dbo].[Order] DROP CONSTRAINT [DF_Order_Date]
+GO
+
+ALTER TABLE [dbo].[Order] DROP CONSTRAINT [DF_Order_IsCompleted]
+GO
+
+/****** Object:  Table [dbo].[Order]    Script Date: 16.6.2016 г. 15:12:07 ******/
+DROP TABLE [dbo].[Order]
+GO
+
+/****** Object:  Table [dbo].[Order]    Script Date: 16.6.2016 г. 15:12:07 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Order](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ShoppingCartId] [int] NOT NULL,
+	[CustomerId] [int] NOT NULL,
+	[Message] [nvarchar](500) NULL,
+	[IsCompleted] [bit] NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[DateCompleted] [datetime] NULL,
+ CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Order] ADD  CONSTRAINT [DF_Order_IsCompleted]  DEFAULT ((0)) FOR [IsCompleted]
+GO
+
+ALTER TABLE [dbo].[Order] ADD  CONSTRAINT [DF_Order_Date]  DEFAULT (getdate()) FOR [Date]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The datetime when the order is inserted' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Order', @level2type=N'COLUMN',@level2name=N'Date'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Datetime when the order is completed' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Order', @level2type=N'COLUMN',@level2name=N'DateCompleted'
+GO
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[UpdateOrder]
+	@OrderID INT,
+	@IsCompleted BIT
+AS
+BEGIN
+
+UPDATE [dbo].[Order]
+   SET [IsCompleted] = @IsCompleted,
+	   [DateCompleted] = CASE WHEN @IsCompleted = '1' THEN GETDATE() ELSE NULL END
+ WHERE Id = @OrderID
+
+END
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[SelectOrders]
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT o.[Id]
+      ,o.[ShoppingCartId]
+      ,o.[CustomerId]
+      ,o.[Message]
+      ,o.[IsCompleted]
+	  ,o.[Date]
+	  ,o.[DateCompleted]
+	  ,SUM(sc.Quantity) AS Quantity
+	  ,SUM(sc.SinglePrice * sc.Quantity) AS TotalPrice
+	FROM [EntiTrees].[dbo].[Order] AS o
+	INNER JOIN [EntiTrees].[dbo].[ShoppingCart] AS sc ON o.ShoppingCartId = sc.ShoppingCartId
+	GROUP BY  o.[Id]
+      ,o.[ShoppingCartId]
+      ,o.[CustomerId]
+      ,o.[Message]
+      ,o.[IsCompleted]
+	  ,o.[Date]
+	  ,o.[DateCompleted]
+	ORDER BY [IsCompleted] ASC, [Date] ASC
+END
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[SelectOrderByID]
+	@OrderID INT
+AS
+BEGIN
+	
+	SELECT o.[Id] as OrderId
+      ,o.[ShoppingCartId]
+      ,o.[CustomerId]
+      ,o.[Message]
+      ,o.[IsCompleted]
+	  ,o.[Date]
+	  ,o.[DateCompleted]
+	  ,c.Name
+	  ,c.Phone
+	  ,c.Email
+	  ,c.[Address]
+  FROM [dbo].[Order] AS o
+  INNER JOIN [dbo].[Customer] AS c on o.CustomerId = c.Id
+  WHERE o.Id = @OrderID
+END

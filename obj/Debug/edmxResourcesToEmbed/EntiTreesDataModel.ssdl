@@ -31,6 +31,7 @@
     <Property Name="Message" Type="nvarchar" MaxLength="500" />
     <Property Name="IsCompleted" Type="bit" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="DateCompleted" Type="datetime" />
   </EntityType>
   <EntityType Name="ShoppingCart">
     <Key>

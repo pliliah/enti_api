@@ -25,6 +25,7 @@ namespace enti_api.Models
         public string message { get; set; }
         public bool isCompleted { get; set; }
         public DateTime orderDate { get; set; }
+        public DateTime? orderCompletedDate { get; set; }
         public int itemsCount { get; set; }
         public double totalPrice { get; set; }
     }
@@ -36,6 +37,7 @@ namespace enti_api.Models
         public int customerId { get; set; }
         public bool isCompleted { get; set; }
         public DateTime orderDate { get; set; }
+        public DateTime? orderCompletedDate { get; set; }
         public Customer customer { get; set; }
         public List<OrderItem> items{ get; set; }
 

@@ -119,7 +119,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DBScripts.txt" />
+    <Content Include="DBScripts.sql" />
     <Content Include="EntiTreesDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EntiTreesDataModel.edmx</DependentUpon>

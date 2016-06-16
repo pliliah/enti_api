@@ -19,6 +19,7 @@ namespace enti_api
         public string Message { get; set; }
         public bool IsCompleted { get; set; }
         public System.DateTime Date { get; set; }
+        public Nullable<System.DateTime> DateCompleted { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<double> TotalPrice { get; set; }
     }

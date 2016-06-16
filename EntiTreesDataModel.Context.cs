@@ -135,20 +135,6 @@ namespace enti_api
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InsertNewOrder_Result>("InsertNewOrder", inXMLParameter);
         }
     
-        public virtual ObjectResult<SelectOrderByID_Result> SelectOrderByID(Nullable<int> orderID)
-        {
-            var orderIDParameter = orderID.HasValue ?
-                new ObjectParameter("OrderID", orderID) :
-                new ObjectParameter("OrderID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectOrderByID_Result>("SelectOrderByID", orderIDParameter);
-        }
-    
-        public virtual ObjectResult<SelectOrders_Result> SelectOrders()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectOrders_Result>("SelectOrders");
-        }
-    
         public virtual ObjectResult<SelectOrderItemsByOrderID_Result> SelectOrderItemsByOrderID(Nullable<int> orderID)
         {
             var orderIDParameter = orderID.HasValue ?
@@ -169,6 +155,20 @@ namespace enti_api
                 new ObjectParameter("IsCompleted", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateOrder", orderIDParameter, isCompletedParameter);
+        }
+    
+        public virtual ObjectResult<SelectOrderByID_Result> SelectOrderByID(Nullable<int> orderID)
+        {
+            var orderIDParameter = orderID.HasValue ?
+                new ObjectParameter("OrderID", orderID) :
+                new ObjectParameter("OrderID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectOrderByID_Result>("SelectOrderByID", orderIDParameter);
+        }
+    
+        public virtual ObjectResult<SelectOrders_Result> SelectOrders()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectOrders_Result>("SelectOrders");
         }
     }
 }

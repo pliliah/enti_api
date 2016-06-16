@@ -32,7 +32,8 @@ namespace enti_api.Controllers
                         isCompleted = item.IsCompleted,
                         itemsCount = item.Quantity == null ? 0 : item.Quantity.Value,
                         message = item.Message,
-                        totalPrice = item.TotalPrice == null ? 0 : item.TotalPrice.Value
+                        totalPrice = item.TotalPrice == null ? 0 : item.TotalPrice.Value,
+                        orderCompletedDate = item.DateCompleted
                     });
                 }
             }
@@ -56,6 +57,7 @@ namespace enti_api.Controllers
                     order.customerId = item.CustomerId;
                     order.orderDate = item.Date;
                     order.isCompleted = item.IsCompleted;
+                    order.orderCompletedDate = item.DateCompleted;
                     order.customer = new Models.Customer
                     {
                         message = item.Message,
