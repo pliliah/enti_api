@@ -799,3 +799,94 @@ BEGIN
   INNER JOIN [dbo].[Customer] AS c on o.CustomerId = c.Id
   WHERE o.Id = @OrderID
 END
+
+------------------------------------------UPDATE DB 20.06.2016-------------------------------------------
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[InsertNewOrder]
+	@InXML xml
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	DECLARE @XmlDataDummy XML = @InXML
+
+	BEGIN TRY
+
+		DECLARE @CustomerName nvarchar(150) = @XmlDataDummy.value('(/Order/customer/name/text())[1]', 'nvarchar(150)')
+        DECLARE @CustomerEmail nvarchar(50) = @XmlDataDummy.value('(/Order/customer/email/text())[1]', 'nvarchar(50)')
+        DECLARE @CustomerPhone nvarchar(50) = @XmlDataDummy.value('(/Order/customer/phone/text())[1]', 'nvarchar(50)')
+        DECLARE @CustomerAddress nvarchar(200) = @XmlDataDummy.value('(/Order/customer/address/text())[1]', 'nvarchar(200)')
+		DECLARE @Message nvarchar(500) = @XmlDataDummy.value('(/Order/customer/message/text())[1]', 'nvarchar(500)')
+		DECLARE @ShoppingCartId int = ISNULL((SELECT TOP 1 ShoppingCartId from ShoppingCart order by ShoppingCartId desc), 0)
+		SET @ShoppingCartId = @ShoppingCartId + 1
+		DECLARE @NewCustomerId INT
+
+		BEGIN TRANSACTION
+		
+		--Insert the new customer
+		INSERT INTO [dbo].[Customer]
+			   ([Name]
+			   ,[Email]
+			   ,[Phone]
+			   ,[Address])
+		 VALUES
+			   (@CustomerName
+			   ,@CustomerEmail
+			   ,@CustomerPhone
+			   ,@CustomerAddress)
+
+		SELECT @NewCustomerId = Scope_Identity();
+						
+		--decrease quantity values
+		DECLARE @itemId int
+		DECLARE @itemPrice float
+		DECLARE @itemDiscount int
+		DECLARE @quantity int
+		DECLARE crsItems cursor static forward_only read_only for 
+		SELECT t.c.value('(item/id/text())[1]','int') AS id, 
+			   t.c.value('(item/price/text())[1]','float') AS price,
+			   t.c.value('(item/discount/text())[1]','int') AS discount, 
+               t.c.value('(quantity/text())[1]','nvarchar(200)') AS [quantity]		          
+	    FROM @InXML.nodes('Order/shoppingCart/OrderItem')t(c)
+
+		OPEN crsItems;
+		FETCH NEXT FROM crsItems INTO @itemId, @itemPrice, @itemDiscount, @quantity;
+		WHILE 0 = @@fetch_status
+		BEGIN
+			INSERT INTO ShoppingCart(ShoppingCartId, ShoppingItemId, Quantity, SinglePrice)
+			VALUES (@ShoppingCartId, @itemId, @quantity, @itemPrice - @itemPrice * @itemDiscount / 100)
+
+			UPDATE ShoppingItem
+			SET Quantity = Quantity - @quantity
+			WHERE Id = @itemId
+		FETCH NEXT FROM crsItems INTO @itemId, @itemPrice, @itemDiscount, @quantity;
+		END 
+		CLOSE crsItems;
+		DEALLOCATE crsItems;
+
+		INSERT INTO [dbo].[Order]([ShoppingCartId],[CustomerId],[Message])
+		VALUES(@ShoppingCartId, @NewCustomerId, @Message)
+
+		COMMIT TRANSACTION
+
+		SELECT 'Order inserted successfully' as ResultMessage,
+			'201' as Result,
+			Scope_Identity() as OrderID
+
+	END TRY
+    BEGIN CATCH
+		IF @@trancount > 0 ROLLBACK TRANSACTION
+
+		SELECT 'There was an error while inserting order' as ResultMessage,
+			'500' as Result,
+			'0' as OrderID
+	END CATCH
+END
+
+GO

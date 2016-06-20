@@ -126,15 +126,6 @@ namespace enti_api
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteShopItem", iDParameter);
         }
     
-        public virtual ObjectResult<InsertNewOrder_Result> InsertNewOrder(string inXML)
-        {
-            var inXMLParameter = inXML != null ?
-                new ObjectParameter("InXML", inXML) :
-                new ObjectParameter("InXML", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InsertNewOrder_Result>("InsertNewOrder", inXMLParameter);
-        }
-    
         public virtual ObjectResult<SelectOrderItemsByOrderID_Result> SelectOrderItemsByOrderID(Nullable<int> orderID)
         {
             var orderIDParameter = orderID.HasValue ?
@@ -169,6 +160,15 @@ namespace enti_api
         public virtual ObjectResult<SelectOrders_Result> SelectOrders()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectOrders_Result>("SelectOrders");
+        }
+    
+        public virtual ObjectResult<InsertNewOrder_Result> InsertNewOrder(string inXML)
+        {
+            var inXMLParameter = inXML != null ?
+                new ObjectParameter("InXML", inXML) :
+                new ObjectParameter("InXML", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InsertNewOrder_Result>("InsertNewOrder", inXMLParameter);
         }
     }
 }

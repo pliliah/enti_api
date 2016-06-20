@@ -15,5 +15,6 @@ namespace enti_api
     {
         public string ResultMessage { get; set; }
         public string Result { get; set; }
+        public Nullable<decimal> OrderID { get; set; }
     }
 }

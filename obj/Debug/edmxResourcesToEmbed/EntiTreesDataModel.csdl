@@ -108,9 +108,6 @@
     <FunctionImport Name="DeleteShopItem">
       <Parameter Name="ID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="InsertNewOrder" ReturnType="Collection(EntiTreesModel.InsertNewOrder_Result)">
-      <Parameter Name="InXML" Mode="In" Type="String" />
-    </FunctionImport>
     <FunctionImport Name="SelectOrderItemsByOrderID" ReturnType="Collection(EntiTreesModel.SelectOrderItemsByOrderID_Result)">
       <Parameter Name="OrderID" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -122,6 +119,9 @@
       <Parameter Name="OrderID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SelectOrders" ReturnType="Collection(EntiTreesModel.SelectOrders_Result)" />
+    <FunctionImport Name="InsertNewOrder" ReturnType="Collection(EntiTreesModel.InsertNewOrder_Result)">
+      <Parameter Name="InXML" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SelectShoppingItems_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -142,10 +142,6 @@
     <Property Type="String" Name="Src" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="ImgSrc" Nullable="false" MaxLength="50" />
     <Property Type="Int32" Name="ItemsCount" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="InsertNewOrder_Result">
-    <Property Type="String" Name="ResultMessage" Nullable="false" MaxLength="27" />
-    <Property Type="String" Name="Result" Nullable="false" MaxLength="3" />
   </ComplexType>
   <ComplexType Name="SelectOrderItemsByOrderID_Result">
     <Property Type="Int32" Name="ShoppingCartId" Nullable="false" />
@@ -181,5 +177,10 @@
     <Property Type="DateTime" Name="DateCompleted" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="Quantity" Nullable="true" />
     <Property Type="Double" Name="TotalPrice" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="InsertNewOrder_Result">
+    <Property Type="String" Name="ResultMessage" Nullable="false" MaxLength="27" />
+    <Property Type="String" Name="Result" Nullable="false" MaxLength="3" />
+    <Property Type="Decimal" Name="OrderID" Nullable="true" Precision="38" Scale="0" />
   </ComplexType>
 </Schema>

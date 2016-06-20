@@ -94,14 +94,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="DeleteShopItem" FunctionName="EntiTreesModel.Store.DeleteShopItem" />
-    <FunctionImportMapping FunctionImportName="InsertNewOrder" FunctionName="EntiTreesModel.Store.InsertNewOrder">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="EntiTreesModel.InsertNewOrder_Result">
-          <ScalarProperty Name="ResultMessage" ColumnName="ResultMessage" />
-          <ScalarProperty Name="Result" ColumnName="Result" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SelectOrderItemsByOrderID" FunctionName="EntiTreesModel.Store.SelectOrderItemsByOrderID">
       <ResultMapping>
         <ComplexTypeMapping TypeName="EntiTreesModel.SelectOrderItemsByOrderID_Result">
@@ -147,6 +139,15 @@
           <ScalarProperty Name="DateCompleted" ColumnName="DateCompleted" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertNewOrder" FunctionName="EntiTreesModel.Store.InsertNewOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EntiTreesModel.InsertNewOrder_Result">
+          <ScalarProperty Name="ResultMessage" ColumnName="ResultMessage" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

@@ -14,7 +14,7 @@ namespace enti_api.Code
             try {
                 byte[] nonce = Convert.FromBase64String(a_nonce);
                 string decodedNonce = Encoding.UTF8.GetString(nonce);
-
+                //TODO: get credentials from the DB
                 // given, a password in a string
                 string password = "123123"; //get the password for that user from the DB
 
