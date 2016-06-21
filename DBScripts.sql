@@ -658,7 +658,7 @@ INSERT INTO [dbo].[Category]
            ,' fertilization'
            ,' shop/fertilization'
            ,' img/gallery/5.jpg' )
-
+GO
 
 
 ------------------------------------------UPDATE DB 16.06.2016-------------------------------------------
@@ -736,7 +736,7 @@ UPDATE [dbo].[Order]
  WHERE Id = @OrderID
 
 END
-
+GO
 
 
 -- =============================================
@@ -772,7 +772,7 @@ BEGIN
 	  ,o.[DateCompleted]
 	ORDER BY [IsCompleted] ASC, [Date] ASC
 END
-
+GO
 
 -- =============================================
 -- Author:		<Author,,Name>
@@ -799,7 +799,7 @@ BEGIN
   INNER JOIN [dbo].[Customer] AS c on o.CustomerId = c.Id
   WHERE o.Id = @OrderID
 END
-
+GO
 ------------------------------------------UPDATE DB 20.06.2016-------------------------------------------
 
 -- =============================================
