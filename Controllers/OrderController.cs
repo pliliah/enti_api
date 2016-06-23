@@ -110,7 +110,7 @@ namespace enti_api.Controllers
                             return new Models.ReturnValue<string>(Models.Codes.NotEnoughQty, "There is not enough quantity for this item " + item.item.title);
                         }
                     }
-                    
+
                     var result = db.InsertNewOrder(inXml);
                     Models.ReturnValue<string> returnVal;
 
@@ -184,6 +184,8 @@ namespace enti_api.Controllers
                     " лв. </td></tr>";
                 total += itemPrice;
             }
+            string contactsUrl = System.Web.Configuration.WebConfigurationManager.AppSettings.Get("entiTreesUrl") + "contacts";
+
             body += @"<tfoot><tr><td colspan=""3""><hr style=""border-top: 1px solid #eee;""></td></tr>
                         <tr style=""border-top: 1px solid #eee""><td colspan=""2"">Обща цена на поръчката:</td><td style=""text-align: right;"">" +
                             total.ToString() +
@@ -192,7 +194,7 @@ namespace enti_api.Controllers
                       </tbody>
                       </table>
                       <br/><br/>
-                    Детайли за доставката можете да откриете на страницата <a href=""#"">Контакти</a> на нашия сайт.
+                    Детайли за доставката можете да откриете на страницата <a href=""" + contactsUrl + @""">Контакти</a> на нашия сайт.
                     <br/> Благодарим Ви, че избрахте нас!
                     </body>
                     </html>";

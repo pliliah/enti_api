@@ -51,9 +51,10 @@ namespace enti_api.Code
         public static void SendMail(string m_subject, string m_body, string m_receiverEmail, string m_receiverName)
         {
             //TODO: put email credentials in web.config
-            var fromAddress = new MailAddress("enti.tree.bonsai@gmail.com", "Enti Tree Bonsai");
+            string mailFrom = System.Web.Configuration.WebConfigurationManager.AppSettings.Get("adminEmail");
+            var fromAddress = new MailAddress(mailFrom, "Enti Tree Bonsai");
             var toAddress = new MailAddress(m_receiverEmail, m_receiverName);
-            const string fromPassword = "bonsaishop2016";
+            string fromPassword = System.Web.Configuration.WebConfigurationManager.AppSettings.Get("adminEmailPwd");
 
             var smtp = new SmtpClient
             {
@@ -72,7 +73,7 @@ namespace enti_api.Code
             })
             {
                 message.IsBodyHtml = true;
-                message.To.Add(fromAddress);
+                message.CC.Add(fromAddress);
                 smtp.Send(message);
             }
         }

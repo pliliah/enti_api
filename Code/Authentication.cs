@@ -16,7 +16,13 @@ namespace enti_api.Code
                 string decodedNonce = Encoding.UTF8.GetString(nonce);
                 //TODO: get credentials from the DB
                 // given, a password in a string
-                string password = "123123"; //get the password for that user from the DB
+                var adminUser = System.Web.Configuration.WebConfigurationManager.AppSettings.Get("adminUser");
+                if(adminUser != a_user)
+                {
+                    return false;
+                }
+
+                string password = System.Web.Configuration.WebConfigurationManager.AppSettings.Get("adminPwd"); //get the password for that user from the DB
 
                 // byte array representation of that string
                 byte[] encodedPassword = new UTF8Encoding().GetBytes(decodedNonce + a_created + password);
