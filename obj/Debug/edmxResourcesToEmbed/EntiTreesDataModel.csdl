@@ -93,6 +93,7 @@
     </FunctionImport>
     <FunctionImport Name="SelectShoppingItems" ReturnType="Collection(EntiTreesModel.SelectShoppingItems_Result)">
       <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="ItemID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="UpdateShopItem">
       <Parameter Name="ID" Mode="In" Type="Int32" />

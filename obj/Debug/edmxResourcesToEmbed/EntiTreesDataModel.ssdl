@@ -95,6 +95,7 @@
   <Function Name="SelectOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SelectShoppingItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CategoryID" Type="int" Mode="In" />
+    <Parameter Name="ItemID" Type="int" Mode="In" />
   </Function>
   <Function Name="UpdateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="OrderID" Type="int" Mode="In" />

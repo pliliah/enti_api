@@ -100,6 +100,7 @@
         <Function Name="SelectOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SelectShoppingItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="ItemID" Type="int" Mode="In" />
         </Function>
         <Function Name="UpdateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OrderID" Type="int" Mode="In" />
@@ -223,6 +224,7 @@
           </FunctionImport>
           <FunctionImport Name="SelectShoppingItems" ReturnType="Collection(EntiTreesModel.SelectShoppingItems_Result)">
           <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+            <Parameter Name="ItemID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UpdateShopItem">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -250,7 +252,7 @@
           </FunctionImport>
           <FunctionImport Name="SelectOrders" ReturnType="Collection(EntiTreesModel.SelectOrders_Result)" />
           <FunctionImport Name="InsertNewOrder" ReturnType="Collection(EntiTreesModel.InsertNewOrder_Result)">
-            <Parameter Name="InXML" Mode="In" Type="String" />
+          <Parameter Name="InXML" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SelectShoppingItems_Result">

@@ -890,3 +890,43 @@ BEGIN
 END
 
 GO
+
+
+
+------------------------------------------UPDATE DB 18.07.2016-------------------------------------------
+
+USE [EntiTrees]
+GO
+/****** Object:  StoredProcedure [dbo].[SelectShoppingItems]    Script Date: 18.7.2016 г. 15:50:54 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[SelectShoppingItems]
+	@CategoryID int = NULL,
+	@ItemID int = NULL
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    SELECT [Id]
+      ,[Title]
+      ,[Description]
+      ,[Price]
+      ,[Discount]
+      ,[LastModified]
+      ,[ImageSrc]
+      ,[Quantity]
+      ,[CategoryId]
+  FROM [EntiTrees].[dbo].[ShoppingItem]
+  WHERE ( @CategoryID is null or @CategoryID = [CategoryId] ) 
+	 AND (@ItemID is null or @ItemID = [Id])
+	 AND IsDeleted = 0
+END

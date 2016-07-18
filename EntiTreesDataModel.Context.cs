@@ -66,13 +66,17 @@ namespace enti_api
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertNewShopItem", titleParameter, descriptionParameter, priceParameter, discountParameter, imageSrcParameter, quantityParameter, categoryIdParameter);
         }
     
-        public virtual ObjectResult<SelectShoppingItems_Result> SelectShoppingItems(Nullable<int> categoryID)
+        public virtual ObjectResult<SelectShoppingItems_Result> SelectShoppingItems(Nullable<int> categoryID, Nullable<int> itemID)
         {
             var categoryIDParameter = categoryID.HasValue ?
                 new ObjectParameter("CategoryID", categoryID) :
                 new ObjectParameter("CategoryID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectShoppingItems_Result>("SelectShoppingItems", categoryIDParameter);
+            var itemIDParameter = itemID.HasValue ?
+                new ObjectParameter("ItemID", itemID) :
+                new ObjectParameter("ItemID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectShoppingItems_Result>("SelectShoppingItems", categoryIDParameter, itemIDParameter);
         }
     
         public virtual int UpdateShopItem(Nullable<int> iD, string title, string description, Nullable<double> price, Nullable<int> discount, string imageSrc, Nullable<int> quantity, Nullable<int> categoryId)

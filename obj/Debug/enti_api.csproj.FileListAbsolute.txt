@@ -42,4 +42,3 @@ E:\Personal\enti_net\enti_api\enti_api\bin\EntityFramework.dll
 E:\Personal\enti_net\enti_api\enti_api\bin\EntityFramework.SqlServer.dll
 E:\Personal\enti_net\enti_api\enti_api\bin\EntityFramework.xml
 E:\Personal\enti_net\enti_api\enti_api\bin\EntityFramework.SqlServer.xml
-E:\Personal\enti_net\enti_api\enti_api\obj\Debug\enti_api.csprojResolveAssemblyReference.cache

@@ -11,14 +11,19 @@ namespace enti_api.Controllers
     public class ShoppingItemsController : ApiController
     {
        
-        // GET: api/ShoppingItems/5
+        // GET: api/ShoppingItems?categoryId=5
+        /// <summary>
+        /// Gets all shopping items for the specified category
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
         public List<Models.ShoppingItem> Get(int? categoryId)
         {
             var items = new List<Models.ShoppingItem>();
 
             using (var db = new EntiTreesEntities())
             {
-                var query = db.SelectShoppingItems(categoryId);
+                var query = db.SelectShoppingItems(categoryId, null);
 
                 foreach (var item in query)
                 {
@@ -38,6 +43,40 @@ namespace enti_api.Controllers
             }
 
             return items;
+        }
+
+        // GET: api/ShoppingItems?itemId=5
+        /// <summary>
+        /// Gets the shopping item by it's ID
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
+        public Models.ShoppingItem Get(int itemId)
+        {
+            var it = new Models.ShoppingItem();
+
+            using (var db = new EntiTreesEntities())
+            {
+                var query = db.SelectShoppingItems(null, itemId);
+
+                foreach (var item in query)
+                {
+                    it = new Models.ShoppingItem
+                    {
+                        id = item.Id,
+                        description = item.Description,
+                        discount = item.Discount,
+                        lastUpdated = item.LastModified,
+                        price = item.Price,
+                        quantity = item.Quantity,
+                        src = item.ImageSrc,
+                        title = item.Title,
+                        categoryId = item.CategoryId
+                    };
+                }
+            }
+
+            return it;
         }
 
         //create shopping item
