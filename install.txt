@@ -5,3 +5,7 @@ npm install -g requirejs  --инсталира се глобално така
 
 sudo r.js -o build.config.js - под мак ос
 r.js.cmd -o build.config.js - под уиндоус
+
+
+За билдване на css-a:
+r.js.cmd -o build.css.config.js
